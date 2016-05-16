@@ -12,3 +12,6 @@ C:\Users\Kostas\Desktop\C# Code\New GUI Code\GUI_Hydrobot\GUI_Hydrobot\obj\Debug
 C:\Users\Kostas\Desktop\GUI_Hydrobot\GUI_Hydrobot\bin\Debug\GUI_Hydrobot.exe.config
 C:\Users\Kostas\Desktop\GUI_Hydrobot\GUI_Hydrobot\obj\Debug\GUI_Hydrobot.exe
 C:\Users\Kostas\Desktop\GUI_Hydrobot\GUI_Hydrobot\obj\Debug\GUI_Hydrobot.pdb
+C:\Users\Kostas\Hydrobot\Repos\Hydrobot-AUTH\GUI\GUI_Hydrobot\GUI_Hydrobot\bin\Debug\GUI_Hydrobot.exe.config
+C:\Users\Kostas\Hydrobot\Repos\Hydrobot-AUTH\GUI\GUI_Hydrobot\GUI_Hydrobot\obj\Debug\GUI_Hydrobot.exe
+C:\Users\Kostas\Hydrobot\Repos\Hydrobot-AUTH\GUI\GUI_Hydrobot\GUI_Hydrobot\obj\Debug\GUI_Hydrobot.pdb
