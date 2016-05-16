@@ -1,0 +1,14 @@
+C:\Users\Kostas\Desktop\C# Code\New GUI Code\GUI_Hydrobot\GUI_Hydrobot\bin\Debug\GUI_Hydrobot.exe.config
+C:\Users\Kostas\Desktop\C# Code\New GUI Code\GUI_Hydrobot\GUI_Hydrobot\bin\Debug\GUI_Hydrobot.exe
+C:\Users\Kostas\Desktop\C# Code\New GUI Code\GUI_Hydrobot\GUI_Hydrobot\bin\Debug\GUI_Hydrobot.pdb
+C:\Users\Kostas\Desktop\C# Code\New GUI Code\GUI_Hydrobot\GUI_Hydrobot\bin\Debug\GMap.NET.Core.dll
+C:\Users\Kostas\Desktop\C# Code\New GUI Code\GUI_Hydrobot\GUI_Hydrobot\bin\Debug\GMap.NET.WindowsForms.dll
+C:\Users\Kostas\Desktop\C# Code\New GUI Code\GUI_Hydrobot\GUI_Hydrobot\obj\Debug\GUI_Hydrobot.csprojResolveAssemblyReference.cache
+C:\Users\Kostas\Desktop\C# Code\New GUI Code\GUI_Hydrobot\GUI_Hydrobot\obj\Debug\GUI_Hydrobot.Form1.resources
+C:\Users\Kostas\Desktop\C# Code\New GUI Code\GUI_Hydrobot\GUI_Hydrobot\obj\Debug\GUI_Hydrobot.Properties.Resources.resources
+C:\Users\Kostas\Desktop\C# Code\New GUI Code\GUI_Hydrobot\GUI_Hydrobot\obj\Debug\GUI_Hydrobot.csproj.GenerateResource.Cache
+C:\Users\Kostas\Desktop\C# Code\New GUI Code\GUI_Hydrobot\GUI_Hydrobot\obj\Debug\GUI_Hydrobot.exe
+C:\Users\Kostas\Desktop\C# Code\New GUI Code\GUI_Hydrobot\GUI_Hydrobot\obj\Debug\GUI_Hydrobot.pdb
+C:\Users\Kostas\Desktop\GUI_Hydrobot\GUI_Hydrobot\bin\Debug\GUI_Hydrobot.exe.config
+C:\Users\Kostas\Desktop\GUI_Hydrobot\GUI_Hydrobot\obj\Debug\GUI_Hydrobot.exe
+C:\Users\Kostas\Desktop\GUI_Hydrobot\GUI_Hydrobot\obj\Debug\GUI_Hydrobot.pdb
