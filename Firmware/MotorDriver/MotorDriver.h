@@ -6,12 +6,12 @@
 class MotorDriver
 {
 	public:
-		MotorDriver(int PWMA,int AIN1, int AIN2, int PWMB, int BIN1, int BIN2,int STBY);
+		MotorDriver(int PWMA, int AIN2, int PWMB, int BIN2,int PWMC1,int PWMC2);
 		void move(int motor, int speed, int direction);
 		void stop(int motor);
 		void standbyStop();
 	private:
-		int _PWMA,_AIN1,_AIN2,_PWMB,_BIN1,_BIN2,_STBY;
+		int _PWMA,_AIN2,_PWMB,_BIN2,_PWMC1,_PWMC2;
 };
 
 #endif
