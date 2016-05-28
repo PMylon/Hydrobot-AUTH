@@ -18,6 +18,7 @@
 #define COUNTERCLOCKWISE 1
 #define motorA 1
 #define motorB 0
+#define motorC 2
 
 //RF related declerations
 CCPACKET txPacket;  // packet object
@@ -39,7 +40,7 @@ static int BIN2 = 7; //Direction
 static int PWMC1 = 5;
 static int PWMC2 = 9;
 
-MotorDriver motorDriver(PWMA,AIN2,PWMB,BIN2);
+MotorDriver motorDriver(PWMA,AIN2,PWMB,BIN2,PWMC1,PWMC2);
 
 //GPS related declerations
 static const int GPS_RX_pin = 8;
@@ -60,8 +61,8 @@ void setup()
   pinMode(A0, OUTPUT);
   pinMode(A1,OUTPUT);
   //analogReference(INTERNAL);
-  pinMode(PWMC1, OUTPUT);
-  pinMode(PWMC2, OUTPUT);
+ // pinMode(PWMC1, OUTPUT);
+  //pinMode(PWMC2, OUTPUT);
   Serial.begin(9600);
   ss.begin(GPSBaud);
 
@@ -159,21 +160,24 @@ void interpretInstruction(String instruction)
       motorDriver.move(motor,motorSpeed,motorDirection);
     }
     else if(instruction.charAt(3)=='C')
+    motor = motorC;
     {
       if (instruction.charAt(4)=='R')
       {
         motorSpeed = instruction.substring(5,8).toInt();
-        
-      analogWrite(PWMC2,motorSpeed);
-      analogWrite(PWMC1,0);
+        motorDirection = COUNTERCLOCKWISE;
+      //analogWrite(PWMC2,motorSpeed);
+      //analogWrite(PWMC1,0);
       }
       else if (instruction.charAt(4)=='L')
       {
         motorSpeed = instruction.substring(5,8).toInt();
-        
-      analogWrite(PWMC1,motorSpeed);
-      analogWrite(PWMC2,0);
+        motorDirection = CLOCKWISE;
+      //analogWrite(PWMC1,motorSpeed);
+      //analogWrite(PWMC2,0);
       }
+      
+      motorDriver.move(motor,motorSpeed,motorDirection);
     }
     //motorDriver.move(motor,motorSpeed,motorDirection);
     Serial.print("motor: ");
