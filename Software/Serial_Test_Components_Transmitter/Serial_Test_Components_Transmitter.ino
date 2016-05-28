@@ -50,13 +50,15 @@ String lastLocation = "";
 TinyGPSPlus gps;
 
 // The serial connection to the GPS device
-SoftwareSerial ss(GPS_RX_pin, A7);
+SoftwareSerial ss(GPS_RX_pin, A3);
 
 //
 
 
 void setup()
 {
+  pinMode(A0, OUTPUT);
+  pinMode(A1,OUTPUT);
   //analogReference(INTERNAL);
   pinMode(PWMC1, OUTPUT);
   pinMode(PWMC2, OUTPUT);
@@ -192,7 +194,9 @@ void interpretInstruction(String instruction)
   }
   else if(instruction.substring(0,3) == "RQT")
   {
-    int temp = analogRead(0);
+    digitalWrite(A0,LOW);
+    digitalWrite(A1,LOW);
+    int temp = analogRead(6);
     float tempC = (temp*100*3.3);
     tempC = tempC/1024;
     Serial.print(" analog temp reading = :");
@@ -202,7 +206,9 @@ void interpretInstruction(String instruction)
   }
   else if(instruction.substring(0,3) == "RQP")
   {
-    int temp = analogRead(1);
+    digitalWrite(A0,LOW);
+    digitalWrite(A1,LOW);
+    int temp = analogRead(7);
     double temp2 = temp/(double)1024;
     double tempVoltage = temp2*3.3;
     double pressure = (tempVoltage/5.1 +0.04)/0.004;
@@ -266,7 +272,7 @@ void displayInfo()
     toSend+="INVALID";
   }
   //digitalWrite(LED1, !digitalRead(LED1));
-  //Serial.println(toSend);
+  Serial.println(toSend);
   lastLocation = toSend;
   //sendRFString(toSend);
   toSend="";
