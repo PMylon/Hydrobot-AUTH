@@ -29,7 +29,6 @@ void MotorDriver::move(int motor, int speed, int direction)
 //direction: 0 clockwise, 1 counter-clockwise
 
   //digitalWrite(_STBY, HIGH); //disable standby
-//Hello world
 
   boolean inPin2 = HIGH;
   int motorCSpeed1 = speed;
