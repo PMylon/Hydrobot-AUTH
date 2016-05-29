@@ -1,7 +1,7 @@
 #include <TinyGPS++.h>
 #include <SoftwareSerial.h>
 #include "MotorDriver.h"
-#include "HardwareSerial.h"
+//#include "HardwareSerial.h"
 /*
    This sample sketch demonstrates the normal use of a TinyGPS++ (TinyGPSPlus) object.
    It requires the use of SoftwareSerial, and assumes that you have a
@@ -22,19 +22,14 @@
 
 //RF related declerations
 CCPACKET txPacket;  // packet object
-byte count = 0;
-char temp[] = "hello world!";
 String receivedRFString="";
 bool rfStringReady = false;
 
 //Motor related declerations
 static int PWMA = 3; //Speed control 
-//static int AIN1 = 5; //Direction
 static int AIN2 = 4; //Direction
-//static int STBY = 9; //standby
 
 static int PWMB = 6; //Speed control 
-//static int BIN1 = 0; //Direction
 static int BIN2 = 7; //Direction
 
 static int PWMC1 = 5;
@@ -58,12 +53,11 @@ SoftwareSerial ss(GPS_RX_pin, A3);
 
 void setup()
 {
+  //A0 and A1 are used as S0 and S1 on the multiplexer
   pinMode(A0, OUTPUT);
   pinMode(A1,OUTPUT);
-  //analogReference(INTERNAL);
- // pinMode(PWMC1, OUTPUT);
-  //pinMode(PWMC2, OUTPUT);
-  Serial.begin(9600);
+  
+  //Serial.begin(9600);
   ss.begin(GPSBaud);
 
   
@@ -104,21 +98,21 @@ void loop()
     //while(true);
   }
   
-  if(Serial.available()>0)
-  {
-    String instruction="";
-    char cChar=Serial.read();
-    delay(10);
-    instruction="";
-    while(cChar != ',')
-    {
-      instruction+=cChar;
-      cChar = Serial.read();
-      delay(10);
-    }
-    interpretInstruction(instruction);
-  }
-  
+//  if(Serial.available()>0)
+//  {
+//    String instruction="";
+//    char cChar=Serial.read();
+//    delay(10);
+//    instruction="";
+//    while(cChar != ',')
+//    {
+//      instruction+=cChar;
+//      cChar = Serial.read();
+//      delay(10);
+//    }
+//    interpretInstruction(instruction);
+//  }
+//  
 }
 
 void interpretInstruction(String instruction)
@@ -180,53 +174,77 @@ void interpretInstruction(String instruction)
       motorDriver.move(motor,motorSpeed,motorDirection);
     }
     //motorDriver.move(motor,motorSpeed,motorDirection);
-    Serial.print("motor: ");
-    Serial.print(motor);
-    Serial.print(" motorSpeed: ");
-    Serial.print(motorSpeed);
-    Serial.print(" motorDirection: ");
-    Serial.print(motorDirection);
-    Serial.println();
+//    Serial.print("motor: ");
+//    Serial.print(motor);
+//    Serial.print(" motorSpeed: ");
+//    Serial.print(motorSpeed);
+//    Serial.print(" motorDirection: ");
+//    Serial.print(motorDirection);
+//    Serial.println();
     toSend+="Moving motor ";
     toSend+=instruction.charAt(3);
     toSend+=" at speed ";
     toSend+=String(motorSpeed);
     toSend+=" and direction ";
     toSend+=instruction.charAt(4);
-    Serial.println(toSend);
+//    Serial.println(toSend);
     //sendRFString(toSend);
   }
   else if(instruction.substring(0,3) == "RQT")
   {
     digitalWrite(A0,LOW);
     digitalWrite(A1,LOW);
+    analogReference(INTERNAL);
+    delay(500);
     int temp = analogRead(6);
-    float tempC = (temp*100*3.3);
+    float tempC = (temp*100);
     tempC = tempC/1024;
-    Serial.print(" analog temp reading = :");
-    Serial.print(temp);
-    Serial.print(" analog tempC = :");
-    Serial.println(tempC,1);
+    //float tempC = temp/ 9.31;
+    toSend+="Analog temp reading = ";
+    toSend+=String(temp);
+    toSend+=" Analog tempC: ";
+    toSend+=String(tempC,1);
+//    Serial.print(" analog temp reading = :");
+//    Serial.print(temp);
+//    Serial.print(" analog tempC = :");
+//    Serial.println(tempC,1);
   }
   else if(instruction.substring(0,3) == "RQP")
   {
+    toSend="";
     digitalWrite(A0,LOW);
     digitalWrite(A1,LOW);
+    analogReference(DEFAULT);
+    delay(100);
     int temp = analogRead(7);
-    double temp2 = temp/(double)1024;
-    double tempVoltage = temp2*3.3;
-    double pressure = (tempVoltage/5.1 +0.04)/0.004;
-    Serial.print(" analog pressure reading = :");
-    Serial.print(temp);
-    Serial.print(" analog pressure voltage = :");
-    Serial.print(tempVoltage,5);
-    Serial.print(" pressure = :");
-    Serial.println(pressure,5);
+    float temp2 = temp*3.3;
+    temp2 = temp2/1024;
+    temp2 = (temp2/5.1 +0.04)/0.004;
+    toSend+="Analog pressure reading: ";
+    toSend+=String(temp);
+    toSend+=" pressure: ";
+    //sendRFString(toSend);
+    //toSend="";
+    toSend+=String(temp2,3);
+    toSend+=" kPa";
+    delay(100);
+//    Serial.print(" analog pressure reading = :");
+//    Serial.print(temp);
+//    Serial.print(" analog pressure voltage = :");
+//    Serial.print(tempVoltage,5);
+//    Serial.print(" pressure = :");
+//    Serial.println(pressure,5);
   }
   else if(instruction.substring(0,3) == "RQL")
   {
-    Serial.println(lastLocation);
+    toSend=lastLocation;
+//    Serial.println(lastLocation);
   }
+  else 
+  {
+    toSend+="Not a valid instruction";
+  }
+  sendRFString(toSend);
   
 }
 
@@ -272,11 +290,9 @@ void displayInfo()
   }
   else
   {
-    //Serial.print(F("INVALID"));
     toSend+="INVALID";
   }
-  //digitalWrite(LED1, !digitalRead(LED1));
-  Serial.println(toSend);
+//  Serial.println(toSend);
   lastLocation = toSend;
   //sendRFString(toSend);
   toSend="";
@@ -287,15 +303,18 @@ void displayInfo()
 
 void rfPacketReceived(CCPACKET *packet)
 {   
+  String temp = "";
   if (packet->length > 1 && packet->data[0]==SOURCE_ADDR)
   {   
-      digitalWrite(8,HIGH);
+      //digitalWrite(8,HIGH);
       for (int i=1;i<packet->length;i++)
       {
         receivedRFString+=(char)packet->data[i];
       }
+      temp+="Received instruction: ";
+      temp+=receivedRFString;
+      sendRFString(temp);
       interpretInstruction(receivedRFString);
-      sendRFString(receivedRFString);
       receivedRFString="";
       //Serial.println("in rfpacketreceived");
       rfStringReady=true;

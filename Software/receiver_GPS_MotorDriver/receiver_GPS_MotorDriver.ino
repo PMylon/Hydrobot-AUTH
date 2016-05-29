@@ -10,7 +10,7 @@ bool rfStringReady = false;
 #define SYNCWORD0        0x47    // Synchronization word, low byte
 #define SOURCE_ADDR      5       // Sender address
 #define DESTINATION_ADDR 4       // Receiver address
-#define LED 8
+
 
 CCPACKET txPacket;  // packet object
 byte count = 0;
@@ -43,7 +43,8 @@ void loop()
   //txPacket.length = 2;  // Let's send a single data byte plus the destination address
   if (rfStringReady)
   {
-   Serial.print(receivedRFString);
+    Serial.print("-Transmitter: ");
+    Serial.print(receivedRFString);
     Serial.println();
     rfStringReady=false;
     receivedRFString="";
@@ -65,18 +66,11 @@ void loop()
   }
   if (hasInstruction)
   {
-    //Serial.println(instruction);
+    Serial.print("-Receiver: Sending instruction:  ");
+    Serial.println(instruction);
     sendRFString(instruction);
     hasInstruction=false;
   }
- // digitalWrite(9,HIGH);
-   //delay(10000);
-  //delay(500);
-  //digitalWrite(8, LOW);
-  //delay(500);
-  //txPacket.data[0] = DESTINATION_ADDR;   // First data byte has to be the destination address
-  //txPacket.data[1] = count++;            // Self-incrementing value       
-  //panstamp.radio.sendData(txPacket);     // Transmit packet
    
   //delay(5000);                           // Transmit every 5 seconds
   // For low-power applications replace "delay" by "panstamp.sleepWd(WDTO_8S)" for example
