@@ -195,8 +195,9 @@ void interpretInstruction(String instruction)
     digitalWrite(A0,LOW);
     digitalWrite(A1,LOW);
     analogReference(INTERNAL);
-    delay(500);
     int temp = analogRead(6);
+    delay(50);
+    temp = analogRead(6);
     float tempC = (temp*100);
     tempC = tempC/1024;
     //float tempC = temp/ 9.31;
@@ -215,8 +216,9 @@ void interpretInstruction(String instruction)
     digitalWrite(A0,LOW);
     digitalWrite(A1,LOW);
     analogReference(DEFAULT);
-    delay(100);
     int temp = analogRead(7);
+    delay(50);
+    temp = analogRead(7);
     float temp2 = temp*3.3;
     temp2 = temp2/1024;
     temp2 = (temp2/5.1 +0.04)/0.004;
@@ -244,7 +246,10 @@ void interpretInstruction(String instruction)
   {
     analogReference(DEFAULT);
     int voltageReading = analogRead(2);
+    delay(50);
+    voltageReading = analogRead(2);
     float voltageAnalog = voltageReading*3.3;
+    voltageAnalog = (voltageAnalog/1024);
     float batteryVoltage;
     batteryVoltage = voltageAnalog*1040/220;
     toSend+="Voltage Reading: ";
