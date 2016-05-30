@@ -240,6 +240,19 @@ void interpretInstruction(String instruction)
     toSend=lastLocation;
 //    Serial.println(lastLocation);
   }
+  else if(instruction.substring(0,3) == "RQV")
+  {
+    analogReference(DEFAULT);
+    int voltageReading = analogRead(2);
+    float voltageAnalog = voltageReading*3.3;
+    float batteryVoltage;
+    batteryVoltage = voltageAnalog*1040/220;
+    toSend+="Voltage Reading: ";
+    toSend+=String(voltageAnalog,3);
+    toSend+=" V  Battery Voltage:";
+    toSend+=String(batteryVoltage,3);
+    toSend+=" V";
+  }
   else 
   {
     toSend+="Not a valid instruction";
