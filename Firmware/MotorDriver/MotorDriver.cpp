@@ -2,7 +2,7 @@
 #include "MotorDriver.h"
 
 MotorDriver::MotorDriver(int PWMA,int AIN1, int AIN2, int PWMB, int BIN1, int BIN2,int STBY)
-{
+{//test
 	//initialize pins for the motor driver
   pinMode(STBY, OUTPUT);
   pinMode(PWMA, OUTPUT);
